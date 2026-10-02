@@ -38,6 +38,23 @@ export default function App() {
 
   const getInitialTab = (): string => {
     try {
+      const redirect = sessionStorage.getItem('spa_redirect');
+      if (redirect) {
+        sessionStorage.removeItem('spa_redirect');
+        const rLower = redirect.toLowerCase();
+        if (rLower.includes('find-doctor') || rLower.includes('doctor')) return 'find-doctor';
+        if (rLower.includes('emergency-helplines') || rLower.includes('helpline')) return 'emergency-helplines';
+        if (rLower.includes('eyecare') || rLower.includes('eye')) return 'eyecare';
+        if (rLower.includes('hospitals')) return 'hospitals';
+        if (rLower.includes('pharmacies')) return 'pharmacies';
+        if (rLower.includes('labs')) return 'labs';
+        if (rLower.includes('blood')) return 'blood';
+        if (rLower.includes('emergency')) return 'emergency';
+        if (rLower.includes('map')) return 'map';
+        if (rLower.includes('compare')) return 'compare';
+        if (rLower.includes('admin')) return 'admin';
+      }
+
       const p = window.location.pathname.toLowerCase().replace(/^\//, '');
       const h = window.location.hash.toLowerCase().replace(/^#\/?/, '');
       const route = p || h;

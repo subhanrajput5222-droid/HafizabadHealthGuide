@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Hafizabad Health Guide</title>
+    <script>
+      // Single Page Application redirect script for GitHub Pages
+      // Stores current path and reloads root index.html so the SPA router can handle it
+      (function() {
+        var path = window.location.pathname;
+        var search = window.location.search;
+        var hash = window.location.hash;
+        
+        // Extract repo name if on github.io
+        var repoMatch = path.match(/^\/([^/]+)(.*)/);
+        if (repoMatch) {
+          sessionStorage.setItem('spa_redirect', path + search + hash);
+        }
+        window.location.replace('./');
+      })();
+    </script>
+  </head>
+  <body>
+    <p>Redirecting to Hafizabad Health Guide...</p>
+  </body>
+</html>
