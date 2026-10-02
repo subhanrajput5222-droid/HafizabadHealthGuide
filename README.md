@@ -15,31 +15,28 @@ When deploying a Vite/React application to GitHub Pages (at `https://<username>.
 
 ---
 
-### How to Deploy to GitHub Pages (2 Easy Methods)
+### How to Deploy to GitHub Pages (2 Methods)
 
-#### Method 1: Automatic GitHub Actions (Recommended)
-1. Push this project to your GitHub repository:
+#### Method 1: Instant Deployment via `/docs` Folder (Simplest & Guaranteed)
+All production files are pre-built inside the `/docs` folder (`/docs/index.html`, `/docs/assets/`, `/docs/.nojekyll`, `/docs/404.html`).
+1. Push the code to GitHub:
    ```bash
    git add .
-   git commit -m "Update GitHub Pages build configuration"
+   git commit -m "Update website build in docs folder"
    git push origin main
    ```
 2. In your GitHub repository:
    * Go to **Settings** → **Pages**
-   * Under **Build and deployment** → **Source**, select **GitHub Actions**.
-3. Every time you push to `main`, GitHub will automatically build and deploy your site in ~1 minute.
+   * Under **Build and deployment** → **Source**, select: **Deploy from a branch**
+   * Under **Branch**, select: `main` (or `master`)
+   * Under **Folder**, change `/(root)` to: **`/docs`** (IMPORTANT!)
+   * Click **Save**.
+3. Within 30 seconds, your site will be live at `https://<username>.github.io/<repo-name>/`!
 
-#### Method 2: Deploying via `gh-pages` Branch
-1. Build the production files:
-   ```bash
-   npm run build
-   ```
-2. The compiled static website is generated in the `dist` folder.
-3. Push the contents of the `dist` folder to your `gh-pages` branch, or use the `gh-pages` tool:
-   ```bash
-   npx gh-pages -d dist
-   ```
-4. In GitHub: **Settings** → **Pages** → Source: Select `gh-pages` branch → `/ (root)` → Save.
+#### Method 2: Automatic GitHub Actions
+1. Push your code with `.github/workflows/deploy.yml` and `package-lock.json`.
+2. In **Settings** → **Pages** → **Source**, select **GitHub Actions**.
+3. GitHub Actions builds from scratch and deploys automatically.
 
 ---
 

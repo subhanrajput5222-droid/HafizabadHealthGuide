@@ -2,25 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hafizabad Health Guide</title>
+    <meta http-equiv="refresh" content="0; url=./" />
     <script>
-      // Single Page Application redirect script for GitHub Pages
-      // Stores current path and reloads root index.html so the SPA router can handle it
-      (function() {
-        var path = window.location.pathname;
-        var search = window.location.search;
-        var hash = window.location.hash;
-        
-        // Extract repo name if on github.io
-        var repoMatch = path.match(/^\/([^/]+)(.*)/);
-        if (repoMatch) {
-          sessionStorage.setItem('spa_redirect', path + search + hash);
-        }
-        window.location.replace('./');
-      })();
+      // Safe fallback redirect
+      if (typeof window !== 'undefined' && window.location) {
+        window.location.href = './';
+      }
     </script>
   </head>
-  <body>
-    <p>Redirecting to Hafizabad Health Guide...</p>
+  <body style="font-family: sans-serif; text-align: center; padding: 50px;">
+    <h2>Loading Hafizabad Health Guide...</h2>
+    <p><a href="./" style="color: #034694; font-weight: bold;">Click here if you are not redirected automatically</a></p>
   </body>
 </html>

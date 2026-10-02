@@ -1,0 +1,10 @@
+# Robots.txt for Hafizabad Health Guide
+# Website: https://hafizabadhealth.pk
+# Official District Public Healthcare Directory for Hafizabad, Punjab, Pakistan
+
+User-agent: *
+Allow: /
+Disallow: /admin
+
+# Sitemaps
+Sitemap: https://hafizabadhealth.pk/sitemap.xml

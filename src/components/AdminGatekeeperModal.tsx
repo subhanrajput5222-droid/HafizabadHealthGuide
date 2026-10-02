@@ -79,8 +79,8 @@ export const AdminGatekeeperModal: React.FC<AdminGatekeeperModalProps> = ({
 
           {/* Logo */}
           <div className="flex justify-center mb-3">
-            <div className="bg-white/10 p-2.5 rounded-2xl backdrop-blur-xs border border-white/20 shadow-inner">
-              <Logo className="h-10 text-white" />
+            <div className="p-2 rounded-2xl shadow-inner">
+              <Logo variant="icon" size={48} />
             </div>
           </div>
 

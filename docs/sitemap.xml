@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage -->
+  <url>
+    <loc>https://hafizabadhealth.pk/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Find Doctor & Healthcare Services (Page 25) -->
+  <url>
+    <loc>https://hafizabadhealth.pk/find-doctor</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Emergency Helplines (Page 24) -->
+  <url>
+    <loc>https://hafizabadhealth.pk/emergency-helplines</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Eye & Eyesight Care (Dedicated Section) -->
+  <url>
+    <loc>https://hafizabadhealth.pk/eyecare</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Hospitals Directory -->
+  <url>
+    <loc>https://hafizabadhealth.pk/hospitals</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Doctors & Consultants Roster -->
+  <url>
+    <loc>https://hafizabadhealth.pk/doctors</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Real-Time Blood Stock Status -->
+  <url>
+    <loc>https://hafizabadhealth.pk/blood</loc>
+    <changefreq>hourly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Pharmacies & 24/7 Medical Stores -->
+  <url>
+    <loc>https://hafizabadhealth.pk/pharmacies</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Diagnostic Laboratories & Imaging -->
+  <url>
+    <loc>https://hafizabadhealth.pk/labs</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Interactive District Health Map -->
+  <url>
+    <loc>https://hafizabadhealth.pk/map</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Hospital Comparison Tool -->
+  <url>
+    <loc>https://hafizabadhealth.pk/compare</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+</urlset>
