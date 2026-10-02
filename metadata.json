@@ -1,0 +1,6 @@
+{
+  "name": "Hafizabad Health Guide",
+  "description": "Comprehensive healthcare directory for Hafizabad District, Punjab, Pakistan. Find verified hospitals, doctors, 24/7 emergency services, blood banks, laboratories, and pharmacies in Hafizabad, Pindi Bhattian, and Jalalpur Bhattian.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
