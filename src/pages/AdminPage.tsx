@@ -48,6 +48,8 @@ interface AdminPageProps {
   laboratories: Laboratory[];
   bloodBanks: BloodBank[];
   onRefreshData: () => void;
+  isAdminLoggedIn?: boolean;
+  onLogoutAdmin?: () => void;
 }
 
 export const AdminPage: React.FC<AdminPageProps> = ({
@@ -58,10 +60,18 @@ export const AdminPage: React.FC<AdminPageProps> = ({
   laboratories,
   bloodBanks,
   onRefreshData,
+  isAdminLoggedIn,
+  onLogoutAdmin,
 }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-    return localStorage.getItem('hhg_admin_logged_in') === 'true';
+    return isAdminLoggedIn ?? (localStorage.getItem('hhg_admin_logged_in') === 'true');
   });
+
+  React.useEffect(() => {
+    if (isAdminLoggedIn !== undefined) {
+      setIsAuthenticated(isAdminLoggedIn);
+    }
+  }, [isAdminLoggedIn]);
   const [passcode, setPasscode] = useState('');
   const [authError, setAuthError] = useState('');
   const [activeTab, setActiveTab] = useState<
@@ -102,6 +112,10 @@ export const AdminPage: React.FC<AdminPageProps> = ({
   const handleLogout = () => {
     setIsAuthenticated(false);
     localStorage.removeItem('hhg_admin_logged_in');
+    sessionStorage.removeItem('hhg_admin_logged_in');
+    if (onLogoutAdmin) {
+      onLogoutAdmin();
+    }
   };
 
   // Hospital CRUD

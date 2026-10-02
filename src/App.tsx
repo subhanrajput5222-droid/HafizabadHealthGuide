@@ -30,6 +30,7 @@ import { ClaimModal } from './components/ClaimModal';
 import { ReportModal } from './components/ReportModal';
 import { ReviewModal } from './components/ReviewModal';
 import { LegalModal } from './components/LegalModal';
+import { AdminGatekeeperModal } from './components/AdminGatekeeperModal';
 
 export default function App() {
   const [lang, setLang] = useState<Language>(() => {
@@ -86,6 +87,35 @@ export default function App() {
   const [initialAreaFilter, setInitialAreaFilter] = useState<string>('All');
   const [compareList, setCompareList] = useState<Hospital[]>([]);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  // Admin Login Gatekeeper: Asks for admin login when website opens
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState<boolean>(() => {
+    return localStorage.getItem('hhg_admin_logged_in') === 'true';
+  });
+
+  const [showAdminLoginModal, setShowAdminLoginModal] = useState<boolean>(() => {
+    return localStorage.getItem('hhg_admin_logged_in') !== 'true';
+  });
+
+  const handleAdminLoginSuccess = (_username: string) => {
+    setIsAdminLoggedIn(true);
+    setShowAdminLoginModal(false);
+  };
+
+  const handleContinueAsGuest = () => {
+    setShowAdminLoginModal(false);
+  };
+
+  const handleLogoutAdmin = () => {
+    localStorage.removeItem('hhg_admin_logged_in');
+    sessionStorage.removeItem('hhg_admin_logged_in');
+    setIsAdminLoggedIn(false);
+    setShowAdminLoginModal(true);
+  };
+
+  const handleOpenAdminLogin = () => {
+    setShowAdminLoginModal(true);
+  };
 
   // Modals state
   const [claimModal, setClaimModal] = useState<{
@@ -246,6 +276,9 @@ export default function App() {
         setLang={setLang}
         onOpenSearch={() => setIsSearchOpen(true)}
         compareCount={compareList.length}
+        isAdminLoggedIn={isAdminLoggedIn}
+        onOpenAdminLogin={handleOpenAdminLogin}
+        onLogoutAdmin={handleLogoutAdmin}
       />
 
       {/* Main Viewport Router */}
@@ -398,6 +431,8 @@ export default function App() {
             laboratories={laboratories}
             bloodBanks={bloodBanks}
             onRefreshData={refreshData}
+            isAdminLoggedIn={isAdminLoggedIn}
+            onLogoutAdmin={handleLogoutAdmin}
           />
         )}
       </main>
@@ -422,6 +457,14 @@ export default function App() {
           })
         }
         onOpenLegal={(type) => setLegalModal({ isOpen: true, type })}
+      />
+
+      {/* Admin Gatekeeper Login Modal */}
+      <AdminGatekeeperModal
+        isOpen={showAdminLoginModal}
+        onLoginSuccess={handleAdminLoginSuccess}
+        onContinueAsGuest={handleContinueAsGuest}
+        lang={lang}
       />
 
       {/* Modals */}

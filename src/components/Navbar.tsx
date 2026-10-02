@@ -14,6 +14,8 @@ import {
   Globe2,
   Stethoscope,
   Eye,
+  LogOut,
+  ShieldCheck,
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -23,6 +25,9 @@ interface NavbarProps {
   setLang: (l: Language) => void;
   onOpenSearch: () => void;
   compareCount: number;
+  isAdminLoggedIn?: boolean;
+  onOpenAdminLogin?: () => void;
+  onLogoutAdmin?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -32,6 +37,9 @@ export const Navbar: React.FC<NavbarProps> = ({
   setLang,
   onOpenSearch,
   compareCount,
+  isAdminLoggedIn = false,
+  onOpenAdminLogin,
+  onLogoutAdmin,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const t = getT(lang);
@@ -205,19 +213,42 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
             </div>
 
-            {/* Admin Dashboard Entry */}
-            <button
-              onClick={() => handleNavClick('admin')}
-              className={`p-2 rounded-lg border text-sm transition-colors hidden sm:flex items-center gap-1.5 ${
-                currentTab === 'admin'
-                  ? 'bg-slate-900 text-white border-slate-900'
-                  : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'
-              }`}
-              title="Admin Portal"
-            >
-              <Lock className="w-3.5 h-3.5" />
-              <span className="text-xs font-semibold">Admin</span>
-            </button>
+            {/* Admin Dashboard Entry / Status */}
+            {isAdminLoggedIn ? (
+              <div className="hidden sm:flex items-center gap-1.5">
+                <button
+                  onClick={() => handleNavClick('admin')}
+                  className={`px-2.5 py-1.5 rounded-lg border text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                    currentTab === 'admin'
+                      ? 'bg-emerald-700 text-white border-emerald-700 shadow-xs'
+                      : 'bg-emerald-50 text-emerald-800 border-emerald-200 hover:bg-emerald-100'
+                  }`}
+                  title="Admin Portal Active"
+                >
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>{lang === 'ur' ? 'ایڈمن موڈ' : 'Admin'}</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                </button>
+                {onLogoutAdmin && (
+                  <button
+                    onClick={onLogoutAdmin}
+                    className="p-1.5 rounded-lg border border-slate-200 hover:border-red-300 text-slate-500 hover:text-red-600 hover:bg-red-50 text-xs transition-colors cursor-pointer"
+                    title={lang === 'ur' ? 'ایڈمن لاگ آؤٹ' : 'Admin Logout'}
+                  >
+                    <LogOut className="w-3.5 h-3.5" />
+                  </button>
+                )}
+              </div>
+            ) : (
+              <button
+                onClick={onOpenAdminLogin ? onOpenAdminLogin : () => handleNavClick('admin')}
+                className="px-2.5 py-1.5 rounded-lg border border-slate-200 hover:border-[#034694] text-slate-700 hover:text-[#034694] bg-white text-xs font-bold transition-colors hidden sm:flex items-center gap-1.5 cursor-pointer"
+                title="Admin Login"
+              >
+                <Lock className="w-3.5 h-3.5" />
+                <span>{lang === 'ur' ? 'ایڈمن لاگ ان' : 'Admin Login'}</span>
+              </button>
+            )}
 
             {/* Mobile Hamburger Menu Toggle */}
             <button
@@ -282,16 +313,44 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
-            <button
-              onClick={() => handleNavClick('admin')}
-              className="flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-slate-900 py-2 px-3 bg-slate-100 rounded-lg"
-            >
-              <Lock className="w-3.5 h-3.5" />
-              Admin Portal
-            </button>
-            <div className="flex items-center gap-2 text-xs text-slate-500 font-medium">
+            {isAdminLoggedIn ? (
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => handleNavClick('admin')}
+                  className="flex items-center gap-1.5 text-xs font-bold text-emerald-800 py-2 px-3 bg-emerald-50 border border-emerald-200 rounded-lg cursor-pointer"
+                >
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>{lang === 'ur' ? 'ایڈمن پینل' : 'Admin Panel'}</span>
+                </button>
+                {onLogoutAdmin && (
+                  <button
+                    onClick={() => {
+                      onLogoutAdmin();
+                      setMobileMenuOpen(false);
+                    }}
+                    className="flex items-center gap-1 text-xs font-bold text-red-600 py-2 px-2.5 bg-red-50 border border-red-200 rounded-lg cursor-pointer"
+                  >
+                    <LogOut className="w-3.5 h-3.5" />
+                    <span>{lang === 'ur' ? 'لاگ آؤٹ' : 'Logout'}</span>
+                  </button>
+                )}
+              </div>
+            ) : (
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  if (onOpenAdminLogin) onOpenAdminLogin();
+                  else handleNavClick('admin');
+                }}
+                className="flex items-center gap-2 text-xs font-bold text-slate-700 hover:text-slate-900 py-2 px-3 bg-slate-100 rounded-lg cursor-pointer"
+              >
+                <Lock className="w-3.5 h-3.5" />
+                <span>{lang === 'ur' ? 'ایڈمن لاگ ان' : 'Admin Login'}</span>
+              </button>
+            )}
+            <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
               <Globe2 className="w-3.5 h-3.5" />
-              <span>Hafizabad District Portal</span>
+              <span>Hafizabad Portal</span>
             </div>
           </div>
         </div>
