@@ -20,6 +20,7 @@ import {
   INITIAL_BLOOD_BANKS,
   INITIAL_EMERGENCY_HELPLINES,
 } from '../data/initialData';
+import { safeStorage } from '../utils/safeStorage';
 
 const KEYS = {
   HOSPITALS: 'hhg_hospitals_v1',
@@ -65,9 +66,9 @@ const INITIAL_REVIEWS: UserReview[] = [
 
 export const StorageService = {
   getHospitals(): Hospital[] {
-    const data = localStorage.getItem(KEYS.HOSPITALS);
+    const data = safeStorage.getItem(KEYS.HOSPITALS);
     if (!data) {
-      localStorage.setItem(KEYS.HOSPITALS, JSON.stringify(INITIAL_HOSPITALS));
+      safeStorage.setItem(KEYS.HOSPITALS, JSON.stringify(INITIAL_HOSPITALS));
       return INITIAL_HOSPITALS;
     }
     try {
@@ -93,7 +94,7 @@ export const StorageService = {
     } else {
       list.push({ ...hospital, lastUpdated: new Date().toISOString().split('T')[0] });
     }
-    localStorage.setItem(KEYS.HOSPITALS, JSON.stringify(list));
+    safeStorage.setItem(KEYS.HOSPITALS, JSON.stringify(list));
     this.addAuditLog({
       entityType: 'Hospital',
       entityId: hospital.id,
@@ -111,7 +112,7 @@ export const StorageService = {
     const found = list.find(h => h.id === id);
     if (!found) return;
     const filtered = list.filter(h => h.id !== id);
-    localStorage.setItem(KEYS.HOSPITALS, JSON.stringify(filtered));
+    safeStorage.setItem(KEYS.HOSPITALS, JSON.stringify(filtered));
     this.addAuditLog({
       entityType: 'Hospital',
       entityId: id,
@@ -124,9 +125,9 @@ export const StorageService = {
   },
 
   getDoctors(): Doctor[] {
-    const data = localStorage.getItem(KEYS.DOCTORS);
+    const data = safeStorage.getItem(KEYS.DOCTORS);
     if (!data) {
-      localStorage.setItem(KEYS.DOCTORS, JSON.stringify(INITIAL_DOCTORS));
+      safeStorage.setItem(KEYS.DOCTORS, JSON.stringify(INITIAL_DOCTORS));
       return INITIAL_DOCTORS;
     }
     try {
@@ -159,7 +160,7 @@ export const StorageService = {
     } else {
       list.push({ ...doctor, lastUpdated: new Date().toISOString().split('T')[0] });
     }
-    localStorage.setItem(KEYS.DOCTORS, JSON.stringify(list));
+    safeStorage.setItem(KEYS.DOCTORS, JSON.stringify(list));
     this.addAuditLog({
       entityType: 'Doctor',
       entityId: doctor.id,
@@ -175,7 +176,7 @@ export const StorageService = {
     const found = list.find(d => d.id === id);
     if (!found) return;
     const filtered = list.filter(d => d.id !== id);
-    localStorage.setItem(KEYS.DOCTORS, JSON.stringify(filtered));
+    safeStorage.setItem(KEYS.DOCTORS, JSON.stringify(filtered));
     this.addAuditLog({
       entityType: 'Doctor',
       entityId: id,
@@ -187,9 +188,9 @@ export const StorageService = {
   },
 
   getPharmacies(): Pharmacy[] {
-    const data = localStorage.getItem(KEYS.PHARMACIES);
+    const data = safeStorage.getItem(KEYS.PHARMACIES);
     if (!data) {
-      localStorage.setItem(KEYS.PHARMACIES, JSON.stringify(INITIAL_PHARMACIES));
+      safeStorage.setItem(KEYS.PHARMACIES, JSON.stringify(INITIAL_PHARMACIES));
       return INITIAL_PHARMACIES;
     }
     try {
@@ -207,7 +208,7 @@ export const StorageService = {
     } else {
       list.push({ ...pharmacy, lastUpdated: new Date().toISOString().split('T')[0] });
     }
-    localStorage.setItem(KEYS.PHARMACIES, JSON.stringify(list));
+    safeStorage.setItem(KEYS.PHARMACIES, JSON.stringify(list));
     this.addAuditLog({
       entityType: 'Pharmacy',
       entityId: pharmacy.id,
@@ -223,7 +224,7 @@ export const StorageService = {
     const found = list.find(p => p.id === id);
     if (!found) return;
     const filtered = list.filter(p => p.id !== id);
-    localStorage.setItem(KEYS.PHARMACIES, JSON.stringify(filtered));
+    safeStorage.setItem(KEYS.PHARMACIES, JSON.stringify(filtered));
     this.addAuditLog({
       entityType: 'Pharmacy',
       entityId: id,
@@ -235,9 +236,9 @@ export const StorageService = {
   },
 
   getLaboratories(): Laboratory[] {
-    const data = localStorage.getItem(KEYS.LABS);
+    const data = safeStorage.getItem(KEYS.LABS);
     if (!data) {
-      localStorage.setItem(KEYS.LABS, JSON.stringify(INITIAL_LABS));
+      safeStorage.setItem(KEYS.LABS, JSON.stringify(INITIAL_LABS));
       return INITIAL_LABS;
     }
     try {
@@ -255,7 +256,7 @@ export const StorageService = {
     } else {
       list.push({ ...lab, lastUpdated: new Date().toISOString().split('T')[0] });
     }
-    localStorage.setItem(KEYS.LABS, JSON.stringify(list));
+    safeStorage.setItem(KEYS.LABS, JSON.stringify(list));
     this.addAuditLog({
       entityType: 'Laboratory',
       entityId: lab.id,
@@ -271,7 +272,7 @@ export const StorageService = {
     const found = list.find(l => l.id === id);
     if (!found) return;
     const filtered = list.filter(l => l.id !== id);
-    localStorage.setItem(KEYS.LABS, JSON.stringify(filtered));
+    safeStorage.setItem(KEYS.LABS, JSON.stringify(filtered));
     this.addAuditLog({
       entityType: 'Laboratory',
       entityId: id,
@@ -283,9 +284,9 @@ export const StorageService = {
   },
 
   getBloodBanks(): BloodBank[] {
-    const data = localStorage.getItem(KEYS.BLOOD_BANKS);
+    const data = safeStorage.getItem(KEYS.BLOOD_BANKS);
     if (!data) {
-      localStorage.setItem(KEYS.BLOOD_BANKS, JSON.stringify(INITIAL_BLOOD_BANKS));
+      safeStorage.setItem(KEYS.BLOOD_BANKS, JSON.stringify(INITIAL_BLOOD_BANKS));
       return INITIAL_BLOOD_BANKS;
     }
     try {
@@ -303,7 +304,7 @@ export const StorageService = {
     } else {
       list.push({ ...bank, lastUpdated: new Date().toLocaleString() });
     }
-    localStorage.setItem(KEYS.BLOOD_BANKS, JSON.stringify(list));
+    safeStorage.setItem(KEYS.BLOOD_BANKS, JSON.stringify(list));
     this.addAuditLog({
       entityType: 'BloodBank',
       entityId: bank.id,
@@ -331,7 +332,7 @@ export const StorageService = {
       updatedBy: updatedByRole,
     };
     bank.lastUpdated = timestamp;
-    localStorage.setItem(KEYS.BLOOD_BANKS, JSON.stringify(list));
+    safeStorage.setItem(KEYS.BLOOD_BANKS, JSON.stringify(list));
 
     this.addAuditLog({
       entityType: 'BloodAvailability',
@@ -346,7 +347,7 @@ export const StorageService = {
 
   // Facility Claims
   getClaims(): FacilityClaim[] {
-    const data = localStorage.getItem(KEYS.CLAIMS);
+    const data = safeStorage.getItem(KEYS.CLAIMS);
     if (!data) return [];
     try {
       return JSON.parse(data);
@@ -364,7 +365,7 @@ export const StorageService = {
       submittedAt: new Date().toISOString(),
     };
     list.unshift(newClaim);
-    localStorage.setItem(KEYS.CLAIMS, JSON.stringify(list));
+    safeStorage.setItem(KEYS.CLAIMS, JSON.stringify(list));
     return newClaim;
   },
 
@@ -376,7 +377,7 @@ export const StorageService = {
     claim.reviewedAt = new Date().toISOString();
     claim.reviewedBy = reviewedBy;
     if (adminNotes) claim.adminNotes = adminNotes;
-    localStorage.setItem(KEYS.CLAIMS, JSON.stringify(list));
+    safeStorage.setItem(KEYS.CLAIMS, JSON.stringify(list));
 
     this.addAuditLog({
       entityType: 'FacilityClaim',
@@ -391,7 +392,7 @@ export const StorageService = {
 
   // User Reports for incorrect information
   getReports(): FacilityReport[] {
-    const data = localStorage.getItem(KEYS.REPORTS);
+    const data = safeStorage.getItem(KEYS.REPORTS);
     if (!data) return [];
     try {
       return JSON.parse(data);
@@ -409,7 +410,7 @@ export const StorageService = {
       submittedAt: new Date().toISOString(),
     };
     list.unshift(newReport);
-    localStorage.setItem(KEYS.REPORTS, JSON.stringify(list));
+    safeStorage.setItem(KEYS.REPORTS, JSON.stringify(list));
     return newReport;
   },
 
@@ -420,7 +421,7 @@ export const StorageService = {
     report.status = status;
     report.resolvedAt = new Date().toISOString();
     if (adminNotes) report.adminNotes = adminNotes;
-    localStorage.setItem(KEYS.REPORTS, JSON.stringify(list));
+    safeStorage.setItem(KEYS.REPORTS, JSON.stringify(list));
 
     this.addAuditLog({
       entityType: 'FacilityReport',
@@ -435,11 +436,11 @@ export const StorageService = {
 
   // User Reviews with moderation
   getReviews(facilityId?: string): UserReview[] {
-    const data = localStorage.getItem(KEYS.REVIEWS);
+    const data = safeStorage.getItem(KEYS.REVIEWS);
     let list: UserReview[] = [];
     if (!data) {
       list = INITIAL_REVIEWS;
-      localStorage.setItem(KEYS.REVIEWS, JSON.stringify(INITIAL_REVIEWS));
+      safeStorage.setItem(KEYS.REVIEWS, JSON.stringify(INITIAL_REVIEWS));
     } else {
       try {
         list = JSON.parse(data);
@@ -463,7 +464,7 @@ export const StorageService = {
       reported: false,
     };
     list.unshift(newReview);
-    localStorage.setItem(KEYS.REVIEWS, JSON.stringify(list));
+    safeStorage.setItem(KEYS.REVIEWS, JSON.stringify(list));
     return newReview;
   },
 
@@ -472,7 +473,7 @@ export const StorageService = {
     const review = list.find(r => r.id === id);
     if (!review) return;
     review.status = status;
-    localStorage.setItem(KEYS.REVIEWS, JSON.stringify(list));
+    safeStorage.setItem(KEYS.REVIEWS, JSON.stringify(list));
   },
 
   flagReview(id: string): void {
@@ -480,12 +481,12 @@ export const StorageService = {
     const review = list.find(r => r.id === id);
     if (!review) return;
     review.reported = true;
-    localStorage.setItem(KEYS.REVIEWS, JSON.stringify(list));
+    safeStorage.setItem(KEYS.REVIEWS, JSON.stringify(list));
   },
 
   // Audit Logs
   getAuditLogs(): AuditLog[] {
-    const data = localStorage.getItem(KEYS.AUDIT);
+    const data = safeStorage.getItem(KEYS.AUDIT);
     if (!data) return [];
     try {
       return JSON.parse(data);
@@ -503,14 +504,14 @@ export const StorageService = {
     list.unshift(newLog);
     // Keep max 200 logs
     if (list.length > 200) list.pop();
-    localStorage.setItem(KEYS.AUDIT, JSON.stringify(list));
+    safeStorage.setItem(KEYS.AUDIT, JSON.stringify(list));
   },
 
   // Emergency Helplines
   getEmergencyHelplines(): EmergencyHelpline[] {
-    const data = localStorage.getItem(KEYS.HELPLINES);
+    const data = safeStorage.getItem(KEYS.HELPLINES);
     if (!data) {
-      localStorage.setItem(KEYS.HELPLINES, JSON.stringify(INITIAL_EMERGENCY_HELPLINES));
+      safeStorage.setItem(KEYS.HELPLINES, JSON.stringify(INITIAL_EMERGENCY_HELPLINES));
       return INITIAL_EMERGENCY_HELPLINES;
     }
     try {
@@ -536,7 +537,7 @@ export const StorageService = {
     } else {
       list.push({ ...helpline, lastVerifiedDate: today });
     }
-    localStorage.setItem(KEYS.HELPLINES, JSON.stringify(list));
+    safeStorage.setItem(KEYS.HELPLINES, JSON.stringify(list));
     this.addAuditLog({
       entityType: 'EmergencyHelpline',
       entityId: helpline.id,
@@ -556,7 +557,7 @@ export const StorageService = {
     const oldStatus = helpline.isActive;
     helpline.isActive = !helpline.isActive;
     helpline.lastVerifiedDate = new Date().toISOString().split('T')[0];
-    localStorage.setItem(KEYS.HELPLINES, JSON.stringify(list));
+    safeStorage.setItem(KEYS.HELPLINES, JSON.stringify(list));
 
     this.addAuditLog({
       entityType: 'EmergencyHelpline',
@@ -572,12 +573,12 @@ export const StorageService = {
 
   // Reset to verified initial seeds
   resetToSeeds(): void {
-    localStorage.setItem(KEYS.HOSPITALS, JSON.stringify(INITIAL_HOSPITALS));
-    localStorage.setItem(KEYS.DOCTORS, JSON.stringify(INITIAL_DOCTORS));
-    localStorage.setItem(KEYS.PHARMACIES, JSON.stringify(INITIAL_PHARMACIES));
-    localStorage.setItem(KEYS.LABS, JSON.stringify(INITIAL_LABS));
-    localStorage.setItem(KEYS.BLOOD_BANKS, JSON.stringify(INITIAL_BLOOD_BANKS));
-    localStorage.setItem(KEYS.HELPLINES, JSON.stringify(INITIAL_EMERGENCY_HELPLINES));
-    localStorage.setItem(KEYS.REVIEWS, JSON.stringify(INITIAL_REVIEWS));
+    safeStorage.setItem(KEYS.HOSPITALS, JSON.stringify(INITIAL_HOSPITALS));
+    safeStorage.setItem(KEYS.DOCTORS, JSON.stringify(INITIAL_DOCTORS));
+    safeStorage.setItem(KEYS.PHARMACIES, JSON.stringify(INITIAL_PHARMACIES));
+    safeStorage.setItem(KEYS.LABS, JSON.stringify(INITIAL_LABS));
+    safeStorage.setItem(KEYS.BLOOD_BANKS, JSON.stringify(INITIAL_BLOOD_BANKS));
+    safeStorage.setItem(KEYS.HELPLINES, JSON.stringify(INITIAL_EMERGENCY_HELPLINES));
+    safeStorage.setItem(KEYS.REVIEWS, JSON.stringify(INITIAL_REVIEWS));
   }
 };

@@ -15,6 +15,7 @@ import {
   Language,
 } from '../types';
 import { StorageService } from '../services/storageService';
+import { safeStorage } from '../utils/safeStorage';
 import {
   Lock,
   Unlock,
@@ -64,7 +65,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
   onLogoutAdmin,
 }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-    return isAdminLoggedIn ?? (localStorage.getItem('hhg_admin_logged_in') === 'true');
+    return isAdminLoggedIn ?? (safeStorage.getItem('hhg_admin_logged_in') === 'true');
   });
 
   React.useEffect(() => {
@@ -102,7 +103,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
     // Default admin passcode
     if (passcode.trim() === 'hafizabad2026' || passcode.trim() === 'admin') {
       setIsAuthenticated(true);
-      localStorage.setItem('hhg_admin_logged_in', 'true');
+      safeStorage.setItem('hhg_admin_logged_in', 'true');
       setAuthError('');
     } else {
       setAuthError('Invalid passcode. Use "hafizabad2026" or "admin".');
@@ -111,8 +112,8 @@ export const AdminPage: React.FC<AdminPageProps> = ({
 
   const handleLogout = () => {
     setIsAuthenticated(false);
-    localStorage.removeItem('hhg_admin_logged_in');
-    sessionStorage.removeItem('hhg_admin_logged_in');
+    safeStorage.removeItem('hhg_admin_logged_in');
+    safeStorage.removeSessionItem('hhg_admin_logged_in');
     if (onLogoutAdmin) {
       onLogoutAdmin();
     }

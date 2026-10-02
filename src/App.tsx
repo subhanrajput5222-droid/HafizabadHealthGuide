@@ -31,17 +31,18 @@ import { ReportModal } from './components/ReportModal';
 import { ReviewModal } from './components/ReviewModal';
 import { LegalModal } from './components/LegalModal';
 import { AdminGatekeeperModal } from './components/AdminGatekeeperModal';
+import { safeStorage } from './utils/safeStorage';
 
 export default function App() {
   const [lang, setLang] = useState<Language>(() => {
-    return (localStorage.getItem('hhg_lang') as Language) || 'en';
+    return (safeStorage.getItem('hhg_lang') as Language) || 'en';
   });
 
   const getInitialTab = (): string => {
     try {
-      const redirect = sessionStorage.getItem('spa_redirect');
+      const redirect = safeStorage.getSessionItem('spa_redirect');
       if (redirect) {
-        sessionStorage.removeItem('spa_redirect');
+        safeStorage.removeSessionItem('spa_redirect');
         const rLower = redirect.toLowerCase();
         if (rLower.includes('find-doctor') || rLower.includes('doctor')) return 'find-doctor';
         if (rLower.includes('emergency-helplines') || rLower.includes('helpline')) return 'emergency-helplines';
@@ -90,11 +91,11 @@ export default function App() {
 
   // Admin Login Gatekeeper: Asks for admin login when website opens
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState<boolean>(() => {
-    return localStorage.getItem('hhg_admin_logged_in') === 'true';
+    return safeStorage.getItem('hhg_admin_logged_in') === 'true';
   });
 
   const [showAdminLoginModal, setShowAdminLoginModal] = useState<boolean>(() => {
-    return localStorage.getItem('hhg_admin_logged_in') !== 'true';
+    return safeStorage.getItem('hhg_admin_logged_in') !== 'true';
   });
 
   const handleAdminLoginSuccess = (_username: string) => {
@@ -107,8 +108,8 @@ export default function App() {
   };
 
   const handleLogoutAdmin = () => {
-    localStorage.removeItem('hhg_admin_logged_in');
-    sessionStorage.removeItem('hhg_admin_logged_in');
+    safeStorage.removeItem('hhg_admin_logged_in');
+    safeStorage.removeSessionItem('hhg_admin_logged_in');
     setIsAdminLoggedIn(false);
     setShowAdminLoginModal(true);
   };

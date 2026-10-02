@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Logo } from './Logo';
 import { Language } from '../types';
+import { safeStorage } from '../utils/safeStorage';
 import {
   Lock,
   Unlock,
@@ -48,11 +49,11 @@ export const AdminGatekeeperModal: React.FC<AdminGatekeeperModalProps> = ({
       cleanPass === '123456'
     ) {
       if (rememberMe) {
-        localStorage.setItem('hhg_admin_logged_in', 'true');
+        safeStorage.setItem('hhg_admin_logged_in', 'true');
       } else {
-        sessionStorage.setItem('hhg_admin_logged_in', 'true');
+        safeStorage.setSessionItem('hhg_admin_logged_in', 'true');
       }
-      localStorage.setItem('hhg_admin_username', username.trim() || 'admin');
+      safeStorage.setItem('hhg_admin_username', username.trim() || 'admin');
       setError('');
       onLoginSuccess(username.trim() || 'admin');
     } else {
